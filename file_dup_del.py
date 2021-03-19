@@ -7,17 +7,18 @@ import sys
 
 comparison_list = []
 dir_list = []
+init_path = []
 
 # gets initial path
 try: # if inline argument
-    path = sys.argv[1]
+    init_path.append(sys.argv[1])
 except: # current dir
-    path = getcwd()
+    init_path.append(getcwd())
 
-def cycle(path, initial=False):
+def cycle(path: list, initial=False):
     if initial == True:
         try:
-            files = listdir(path)
+            files = listdir(path[0])
         except:
             print(f"error: {path} does not exist")
             sys.exit()
@@ -28,20 +29,23 @@ def cycle(path, initial=False):
                     comparison_list.append(file)
     
                 elif file in comparison_list:
-                    print(f"{file} at {path} is a duplicate") # temp
+                    print(f"{file} at {path[0]} is a duplicate") # temp
                 
                 elif "(" in file:
-                    print(f"{file} at {path} is a duplicate") # temp
+                    print(f"{file} at {path[0]} is a duplicate") # temp
             else: # if dir
-                dir_list.append(f"{path}\{file}")
+                dir_list.append(f"{path[0]}\{file}")
 
     else:
         pass
 
-cycle(path, initial=True)
+cycle(init_path, initial=True)
 
-# while dir_list:
-#     cycle(dir_list)
+# for i in dir_list:
+#     print(i)
+
+# for i in comparison_list:
+#     print(i)
 
 
 
