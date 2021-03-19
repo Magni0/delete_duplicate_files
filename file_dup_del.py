@@ -8,12 +8,16 @@ import sys
 comparison_list = []
 dir_list = []
 init_path = []
+pop_list = []
 
 # gets initial path
 try: # if inline argument
     init_path.append(sys.argv[1])
 except: # current dir
     init_path.append(getcwd())
+
+def file_check(file):
+    pass
 
 def cycle(path: list, initial=False):
     if initial == True:
@@ -37,45 +41,40 @@ def cycle(path: list, initial=False):
                 dir_list.append(f"{path[0]}\{file}")
 
     else:
-        pass
+        for directory in path:
+            # print(directory)
+            files = listdir(directory)
+            # dir_list.remove(directory)
+
+            for file in files:
+                if "." in file: # if file
+                    if file not in comparison_list:
+                        comparison_list.append(file)
+        
+                    elif file in comparison_list:
+                        pass
+                        # print(f"{file} at {directory} is a duplicate") # temp
+                    
+                    elif "(" in file:
+                        pass
+                        # print(f"{file} at {directory} is a duplicate") # temp
+                else: # if dir
+                    dir_list.append(f"{directory}\{file}")
+                    # print(f"{directory}\{file}")
+                # pop_list.append(dir_list.pop(dir_list.index(directory)))
+
 
 cycle(init_path, initial=True)
 
 # for i in dir_list:
 #     print(i)
 
-# for i in comparison_list:
+cycle(dir_list)
+
+# print("\n")
+# for i in dir_list:
 #     print(i)
 
-
-
-
-
-
-
-
-
-# if initial == False:
-#     for i in dir_list:
-#         print(i)
-#     dir_list.remove(file)
-#     path = file
-#     # file = listdir(path)
-#     # print(path)
-#     # for i in file:
-#     #     print(f"    {i}")
-
-# if "." in file: # if file
-#     if file not in comparison_list:
-#         comparison_list.append(file)
-    
-#     elif file in comparison_list:
-#         print(f"{file} at {path} is a duplicate")
-    
-#     elif "(" in file:
-#         print(f"{file} at {path} is a duplicate")
-# else: # if dir
-#     if initial == True:
-#         dir_list.append(f"{path}\{file}")
-#     else:
-#         dir_list.append(f"{file}")
+# print("\n")
+# for i in pop_list:
+#     print(i)
