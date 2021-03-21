@@ -6,9 +6,9 @@ from os import listdir, remove, getcwd
 import sys
 
 comparison_list = []
-dir_list = []
 init_path = []
-pop_list = []
+dir_list = []
+dir_list_2 = []
 
 # gets initial path
 try: # if inline argument
@@ -19,7 +19,10 @@ except: # current dir
 def file_check(file):
     pass
 
-def cycle(path: list, initial=False):
+def cycle(path: list, initial=False, array_switch=True):
+
+    array_2 = array_switch
+
     if initial == True:
         try:
             files = listdir(path[0])
@@ -42,9 +45,8 @@ def cycle(path: list, initial=False):
 
     else:
         for directory in path:
-            # print(directory)
+            
             files = listdir(directory)
-            # dir_list.remove(directory)
 
             for file in files:
                 if "." in file: # if file
@@ -59,22 +61,38 @@ def cycle(path: list, initial=False):
                         pass
                         # print(f"{file} at {directory} is a duplicate") # temp
                 else: # if dir
-                    dir_list.append(f"{directory}\{file}")
-                    # print(f"{directory}\{file}")
-                # pop_list.append(dir_list.pop(dir_list.index(directory)))
+                    if array_2 == True:
+                        # print(f"array_2 is {array_2}")
+                        dir_list_2.append(f"{directory}\{file}")
+                    else:
+                        # print(f"array_2 is {array_2}")
+                        dir_list.append(f"{directory}\{file}")
+            
+        array_2 = not array_2
+        
+        if array_2 == True:
+            dir_list_2.clear()
+        else:
+            dir_list.clear()
 
 
 cycle(init_path, initial=True)
 
-# for i in dir_list:
-#     print(i)
+dir_list_switch = True
 
-cycle(dir_list)
+while len(dir_list) and len(dir_list_2) > 0:
 
-# print("\n")
-# for i in dir_list:
-#     print(i)
+    if dir_list_switch == True:
+        cycle(dir_list)
+    else:
+        cycle(dir_list_2, array_switch=False)
 
-# print("\n")
-# for i in pop_list:
-#     print(i)
+    print("\ndir_list")
+    for i in dir_list:
+        print(i)
+
+    print("\ndir_list_2")
+    for i in dir_list_2:
+        print(i)
+
+    dir_list_switch = not dir_list_switch
