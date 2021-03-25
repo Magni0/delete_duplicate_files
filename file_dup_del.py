@@ -34,11 +34,15 @@ class ScanDirectory:
             if init_path[0] == "/": # if arg is absolute path
                 absolute = True
                 files = listdir(init_path)
+            
             else: # if arg is relative path
                 absolute_initial_path = path.abspath(init_path)
                 files = listdir(absolute_initial_path)
         except:
-            print(f"error: {init_path} does not exist")
+            if absolute == True:
+                raise Exception(f"{init_path} does not exist")
+            else:
+                raise Exception(f"{absolute_initial_path} does not exist")
             sys.exit()
 
         for file in files:
@@ -60,6 +64,9 @@ class ScanDirectory:
 
     def subsequent_cycle(self):
         pass
+
+        # while self.dir_list_1 or self.dir_list_2: # until both lists are empty
+        #     pass
 
 scan = ScanDirectory()
 
