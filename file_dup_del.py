@@ -58,62 +58,12 @@ class ScanDirectory:
                 else: # if path was relitive
                     self.dir_list_1.append(f"{absolute_initial_path}/{file}") # appends directory path to dir_list_1
 
+    def subsequent_cycle(self):
+        pass
+
 scan = ScanDirectory()
 
 scan.initial_cycle()
 
 for i in scan.dir_list_1:
     print(i)
-
-#     for directory in path:
-        
-#         files = listdir(directory)
-
-#         for file in files:
-#             # if "." in file: # if file
-#             #     if file not in comparison_list:
-#             #         comparison_list.append(file)
-    
-#             #     elif file in comparison_list:
-#             #         pass
-#             #         # print(f"{file} at {directory} is a duplicate") # temp
-                
-#             #     elif "(" in file:
-#             #         pass
-#             #         # print(f"{file} at {directory} is a duplicate") # temp
-#             # else: # if dir
-#             if array_2 == True:
-#                 # print(f"array_2 is {array_2}")
-#                 dir_list_2.append(f"{directory}/{file}")
-#             else:
-#                 # print(f"array_2 is {array_2}")
-#                 dir_list.append(f"{directory}/{file}")
-        
-#     array_2 = not array_2
-    
-#     if array_2 == True:
-#         dir_list_2.clear()
-#     else:
-#         dir_list.clear()
-
-
-# cycle(init_path, initial=True)
-
-# dir_list_switch = True
-
-# while len(dir_list) and len(dir_list_2) > 0:
-
-#     if dir_list_switch == True:
-#         cycle(dir_list)
-#     else:
-#         cycle(dir_list_2, array_switch=False)
-
-#     print("\ndir_list")
-#     for i in dir_list:
-#         print(i)
-
-#     print("\ndir_list_2")
-#     for i in dir_list_2:
-#         print(i)
-
-#     dir_list_switch = not dir_list_switch
