@@ -2,21 +2,8 @@
 This script finds and deletes duplicate files in a set of dir paths
 """
 
-from os import listdir, remove, getcwd
+from os import listdir, remove, getcwd, path
 import sys
-
-comparison_list = [] # array to check file names against 
-dir_list_1 = []
-dir_list_2 = []
-
-# gets initial path
-try: # if inline argument
-    init_path = sys.argv[1]
-except: # current dir
-    init_path = getcwd()
-
-# def file_check(file):
-#     pass
 
 class ScanDirectory:
 
@@ -26,30 +13,57 @@ class ScanDirectory:
     to all subsequent directorys.
     """
 
-    def initial_cycle(self, path: str):
+    def __init__(self):
+        self.comparison_list = [] # array to check file names against 
+        self.dir_list_1 = []
+        self.dir_list_2 = []
+
+    def initial_cycle(self):
 
         """Does the first scan in the root directory"""
 
+        absolute = False
+
+        # gets initial path
+        try: # if inline argument
+            init_path = sys.argv[1]
+        except: # current dir
+            init_path = getcwd()
+
         try:
-            files = listdir(path)
+            if init_path[0] == "/": # if arg is absolute path
+                absolute = True
+                files = listdir(init_path)
+            else: # if arg is relative path
+                absolute_initial_path = path.abspath(init_path)
+                files = listdir(absolute_initial_path)
         except:
-            print(f"error: {path} does not exist")
+            print(f"error: {init_path} does not exist")
             sys.exit()
 
         for file in files:
             if "." in file: # if file
-                if file not in comparison_list:
-                    comparison_list.append(file)
+                if file not in self.comparison_list:
+                    self.comparison_list.append(file)
     
-                elif file in comparison_list:
-                    print(f"{file} at {path} is a duplicate") # temp
+                elif file in self.comparison_list:
+                    print(f"{file} at {init_path} is a duplicate") # temp
                 
                 elif "(" in file:
-                    print(f"{file} at {path} is a duplicate") # temp
+                    print(f"{file} at {init_path} is a duplicate") # temp
             
             else: # if dir
-                dir_list_1.append(f"{path}/{file}") # appends directory path to dir_list_1
+                if absolute == True: # if path was and absolute path
+                    self.dir_list_1.append(f"{init_path}/{file}") # appends directory path to dir_list_1
+                else: # if path was relitive
+                    self.dir_list_1.append(f"{absolute_initial_path}/{file}") # appends directory path to dir_list_1
 
+scan = ScanDirectory()
+
+scan.initial_cycle()
+
+for i in scan.dir_list_1:
+    print(i)
 
 #     for directory in path:
         
