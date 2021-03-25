@@ -41,7 +41,7 @@ def cycle(path: list, initial=False, array_switch=True):
                 elif "(" in file:
                     print(f"{file} at {path[0]} is a duplicate") # temp
             else: # if dir
-                dir_list.append(f"{path[0]}\{file}")
+                dir_list.append(f"{path[0]}/{file}")
 
     else:
         for directory in path:
@@ -63,10 +63,10 @@ def cycle(path: list, initial=False, array_switch=True):
                 else: # if dir
                     if array_2 == True:
                         # print(f"array_2 is {array_2}")
-                        dir_list_2.append(f"{directory}\{file}")
+                        dir_list_2.append(f"{directory}/{file}")
                     else:
                         # print(f"array_2 is {array_2}")
-                        dir_list.append(f"{directory}\{file}")
+                        dir_list.append(f"{directory}/{file}")
             
         array_2 = not array_2
         
