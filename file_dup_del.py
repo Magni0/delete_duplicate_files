@@ -27,6 +27,7 @@ class ScanDirectory:
         # gets initial path
         try: # if inline argument
             init_path = sys.argv[1]
+        
         except: # current dir
             init_path = getcwd()
 
@@ -34,28 +35,31 @@ class ScanDirectory:
             if init_path[0] == "/": # if arg is absolute path
                 absolute = True
                 files = listdir(init_path)
-            
+
             else: # if arg is relative path
                 absolute_initial_path = path.abspath(init_path)
                 files = listdir(absolute_initial_path)
+        
         except:
             if absolute == True:
                 raise Exception(f"{init_path} does not exist")
+            
             else:
                 raise Exception(f"{absolute_initial_path} does not exist")
+            
             sys.exit()
 
         for file in files:
             if "." in file: # if file
-                if file not in self.comparison_list:
+                if file not in self.comparison_list:            
                     self.comparison_list.append(file)
-    
-                elif file in self.comparison_list:
+
+                elif file in self.comparison_list:            
                     print(f"{file} at {init_path} is a duplicate") # temp
-                
-                elif "(" in file:
+
+                elif "(" in file:            
                     print(f"{file} at {init_path} is a duplicate") # temp
-            
+
             else: # if dir
                 if absolute == True: # if path was and absolute path
                     self.dir_list_1.append(f"{init_path}/{file}") # appends directory path to dir_list_1
@@ -63,14 +67,58 @@ class ScanDirectory:
                     self.dir_list_1.append(f"{absolute_initial_path}/{file}") # appends directory path to dir_list_1
 
     def subsequent_cycle(self):
-        pass
 
-        # while self.dir_list_1 or self.dir_list_2: # until both lists are empty
-        #     pass
+        switch = True
+
+        while self.dir_list_1 or self.dir_list_2: # until both lists are empty
+            if switch == True:
+                for dir_path in self.dir_list_1:
+
+                    files = listdir(dir_path)
+
+                    for file in files:
+                        if "." in file: # if file
+                            if file not in self.comparison_list:
+                                self.comparison_list.append(file)
+
+                            elif file in self.comparison_list:
+                                print(f"{file} at {dir_path} is a duplicate") # temp
+
+                            elif "(" in file:
+                                print(f"{file} at {dir_path} is a duplicate") # temp
+                        
+                        else:
+                            self.dir_list_2.append(f"{dir_path}/{file}") # appends directory path to dir_list_2
+
+                # print(f"dir_list_2: {self.dir_list_2}\n")
+                switch = False
+                self.dir_list_1.clear()
+
+            elif switch == False:
+                for dir_path in self.dir_list_2:
+
+                    files = listdir(dir_path)
+
+                    for file in files:
+                        if "." in file: # if file
+                            if file not in self.comparison_list:
+                                self.comparison_list.append(file)
+
+                            elif file in self.comparison_list:
+                                print(f"{file} at {dir_path} is a duplicate") # temp
+
+                            elif "(" in file:
+                                print(f"{file} at {dir_path} is a duplicate") # temp
+
+                        else:
+                            self.dir_list_1.append(f"{dir_path}/{file}") # appends directory path to dir_list_1
+
+                # print(f"dir_list_1: {self.dir_list_1}\n")
+                switch = True
+                self.dir_list_2.clear()
 
 scan = ScanDirectory()
 
 scan.initial_cycle()
-
-for i in scan.dir_list_1:
-    print(i)
+# print(f"dir_list_1: {scan.dir_list_1}\n") # for testing purposes
+scan.subsequent_cycle()
