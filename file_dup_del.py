@@ -27,21 +27,25 @@ class ScanDirectory:
 
                 elif file in self.comparison_list and len(file) > self.args.length:
                     if self.args.notify == True:
-                        print(f"{file} at {dir_path} is a duplicate") # temp
+                        # comparison_path = [path for path in self.comparison_list if file in path]
+                        print(f"{file} at {dir_path} is a duplicate")
                     else: # delete file
                         remove(f"{dir_path}/{file}")
+                        print(f"removed: {dir_path}/{file}")
 
                 elif "(" in file and len(file) > self.args.length:
                     if self.args.notify == True:
-                        print(f"{file} at {dir_path} is a duplicate") # temp
+                        # comparison_path = [path for path in self.comparison_list if file in path]
+                        print(f"{file} at {dir_path} is a duplicate")
                     else: # delete file
                         remove(f"{dir_path}/{file}")
+                        print(f"removed: {dir_path}/{file}")
 
             else: # if dir
                 if switch == True:
                     self.dir_list_2.append(f"{dir_path}/{file}") # appends directory path to dir_list_2
                 else:
-                    self.dir_list_1.append(f"{dir_path}/{file}") # appends directory path to dir_list_2
+                    self.dir_list_1.append(f"{dir_path}/{file}") # appends directory path to dir_list_1
 
     def initial_cycle(self):
 
@@ -116,3 +120,4 @@ args = parser.parse_args()
 scan = ScanDirectory(args)
 scan.initial_cycle()
 scan.subsequent_cycle()
+# print(scan.comparison_list)
