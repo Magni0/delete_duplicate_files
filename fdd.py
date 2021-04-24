@@ -76,6 +76,8 @@ class ScanDirectory:
 
     def subsequent_cycle(self):
 
+        """Does every cycle after initial cycle method"""
+
         switch = True
 
         while self.dir_list_1 or self.dir_list_2: # until both lists are empty
