@@ -113,7 +113,7 @@ parser = ArgumentParser(
         from specified root directory & deletes files with the same name
         or files with (*) at the end."""
         )
-parser.add_argument("-n", "--notify", action="store_true", help="only echos dulpicate files and there paths")
+parser.add_argument("-n", "--notify", action="store_true", help="only echos dulpicate files and their paths (does not delete)")
 parser.add_argument("-l", "--length", default=0, type=int, help="skips any file that has a name shorter than LENGTH (including extention)")
 parser.add_argument("-p", "--path", type=str, help="the starting path (path is cwd by default)")
 args = parser.parse_args()
